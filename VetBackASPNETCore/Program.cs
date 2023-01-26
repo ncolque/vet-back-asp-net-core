@@ -10,6 +10,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Cors
+builder.Services.AddCors(options => options.AddPolicy("AllowWebapp", builder => builder
+.AllowAnyOrigin()
+.AllowAnyHeader()
+.AllowAnyMethod()));
+
 //Add context
 builder.Services.AddDbContext<AplicationDbContext>(optionsAction =>
 {
@@ -24,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowWebapp");
 
 app.UseHttpsRedirection();
 
